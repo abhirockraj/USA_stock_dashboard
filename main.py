@@ -3,9 +3,12 @@ import pandas as pd
 import yfinance as yf
 import matplotlib.pyplot as plt
 import numpy as np
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense
-from tensorflow.keras.layers import LSTM
+import tensorflow as tf
+from tensorflow import keras
+from tensorflow.keras import layers
+# from tensorflow.keras.models import Sequential
+# from tensorflow.keras.layers import Dense
+# from tensorflow.keras.layers import LSTM
 from sklearn.preprocessing import MinMaxScaler
 
 st.set_option('deprecation.showPyplotGlobalUse', False)
@@ -42,11 +45,11 @@ if(col2.button("Predict and compare")):
     if(period1 != 'y'):
         st.write("Please Choose Time Frame at least 1 year also be sensible !!!")
     else:
-        model=Sequential()
-        model.add(LSTM(50,return_sequences=True,input_shape=(100,1)))
-        model.add(LSTM(50,return_sequences=True))
-        model.add(LSTM(50))
-        model.add(Dense(1))
+        model=keras.Sequential()
+        model.add(layers.LSTM(50,return_sequences=True,input_shape=(100,1)))
+        model.add(layers.LSTM(50,return_sequences=True))
+        model.add(layers.LSTM(50))
+        model.add(layers.Dense(1))
         model.compile(loss='mean_squared_error',optimizer='adam')
         model.load_weights('./checkpoints/my_checkpoint')
         scaler=MinMaxScaler(feature_range=(0,1))
